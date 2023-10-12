@@ -6,7 +6,8 @@ import AdminEducationView from '@/components/admin-view/education'
 import AdminExperienceView from '@/components/admin-view/experience'
 import AdminHomeView from '@/components/admin-view/home'
 import AdminProjectView from '@/components/admin-view/project'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { addData, getData, updateData } from '@/services'
 
 const initialHomeFormData = {
   heading: '',
@@ -57,6 +58,9 @@ export default function AdminView() {
     initialProjectFormData
   )
 
+  const [allData, setAllData] = useState({})
+  const [update, setUpdate] = useState(false)
+
   const menuItems = [
     {
       id: 'home',
@@ -65,6 +69,7 @@ export default function AdminView() {
         <AdminHomeView
           formData={homeViewFormData}
           setFormData={setHomeViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
@@ -75,6 +80,7 @@ export default function AdminView() {
         <AdminAboutView
           formData={aboutViewFormData}
           setFormData={setAboutViewFormData}
+          handleSaveData={handleSaveData}
         />
       ),
     },
@@ -84,7 +90,9 @@ export default function AdminView() {
       component: (
         <AdminExperienceView
           formData={experienceViewFormData}
+          handleSaveData={handleSaveData}
           setFormData={setExperienceViewFormData}
+          data={allData?.experience}
         />
       ),
     },
@@ -94,7 +102,9 @@ export default function AdminView() {
       component: (
         <AdminEducationView
           formData={educationViewFormData}
+          handleSaveData={handleSaveData}
           setFormData={setEducationViewFormData}
+          data={allData?.education}
         />
       ),
     },
@@ -104,7 +114,9 @@ export default function AdminView() {
       component: (
         <AdminProjectView
           formData={projectViewFormData}
+          handleSaveData={handleSaveData}
           setFormData={setProjectViewFormData}
+          data={allData?.project}
         />
       ),
     },
@@ -115,6 +127,70 @@ export default function AdminView() {
     },
   ]
 
+  async function extractAllDatas() {
+    const response = await getData(currentSelectedTab)
+    if (
+      currentSelectedTab === 'home' &&
+      response &&
+      response.data &&
+      response.data.length
+    ) {
+      setHomeViewFormData(response && response.data[0])
+      setUpdate(true)
+    }
+
+    if (
+      currentSelectedTab === 'about' &&
+      response &&
+      response.data &&
+      response.data.length
+    ) {
+      setAboutViewFormData(response && response.data[0])
+      setUpdate(true)
+    }
+
+    if (response?.success) {
+      setAllData({
+        ...allData,
+        [currentSelectedTab]: response && response.data,
+      })
+    }
+  }
+
+  async function handleSaveData() {
+    const dataMap = {
+      home: homeViewFormData,
+      about: aboutViewFormData,
+      education: educationViewFormData,
+      experience: experienceViewFormData,
+      project: projectViewFormData,
+    }
+
+    const response = update
+      ? await updateData(currentSelectedTab, dataMap[currentSelectedTab])
+      : await addData(currentSelectedTab, dataMap[currentSelectedTab])
+    console.log(response, 'response')
+
+    if (response.success) {
+      resetFormDatas()
+      extractAllDatas()
+    }
+  }
+
+  useEffect(() => {
+    extractAllDatas()
+  }, [currentSelectedTab])
+
+  function resetFormDatas() {
+    setHomeViewFormData(initialHomeFormData)
+    setAboutViewFormData(initialAboutFormData)
+    setEducationViewFormData(initialEducationFormData)
+    setExperienceViewFormData(initialExperienceFormData)
+    setProjectViewFormData(initialProjectFormData)
+  }
+
+  console.log(allData, homeViewFormData, 'homeViewFormData')
+  console.log(allData, aboutViewFormData, 'aboutViewFormData')
   return (
     <div className='border-b border-gray-200'>
       <nav className='-mb-0.5 flex justify-center space-x-6' role='tablist'>
@@ -125,6 +201,8 @@ export default function AdminView() {
             className='p-4 font-bold text-xl text-black'
             onClick={() => {
               setCurrentSelectedTab(item.id)
+              resetFormDatas()
+              setUpdate(false)
             }}
           >
             {item.label}

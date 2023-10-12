@@ -4,15 +4,32 @@ import { NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
-export async function GET(req) {
+export async function PUT(req) {
   try {
     await connectToDB()
-    const extractData = await About.find({})
 
-    if (extractData) {
+    const extractData = await req.json()
+    const {
+      _id,
+      aboutme,
+      noofprojects,
+      yearofexperience,
+      nooflclients,
+      skills,
+    } = extractData
+
+    const updateData = await About.findOneAndUpdate(
+      {
+        _id: _id,
+      },
+      { aboutme, noofprojects, yearofexperience, nooflclients, skills },
+      { new: true }
+    )
+
+    if (updateData) {
       return NextResponse.json({
         success: true,
-        data: extractData,
+        message: 'updated successfully',
       })
     } else {
       return NextResponse.json({
@@ -22,7 +39,6 @@ export async function GET(req) {
     }
   } catch (e) {
     console.log(e)
-
     return NextResponse.json({
       success: false,
       message: 'Something went wrong !Please try again',

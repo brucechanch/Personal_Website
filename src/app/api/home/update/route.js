@@ -1,32 +1,40 @@
 import connectToDB from '@/database'
-import About from '@/models/About'
 import { NextResponse } from 'next/server'
+import Home from '@/models/Home'
 
 export const dynamic = 'force-dynamic'
 
-export async function POST(req) {
+export async function PUT(req) {
   try {
     await connectToDB()
-    const extractData = await req.json()
-    const saveData = await About.create(extractData)
 
-    if (saveData) {
+    const extractData = await req.json()
+    const { _id, heading, summary } = extractData
+
+    const updateData = await Home.findOneAndUpdate(
+      {
+        _id: _id,
+      },
+      { heading, summary },
+      { new: true }
+    )
+
+    if (updateData) {
       return NextResponse.json({
         success: true,
-        message: 'Data saved successfully',
+        message: 'updated successfully ',
       })
     } else {
       return NextResponse.json({
         success: false,
-        message: 'Something goes wrong !Please try again',
+        message: 'Something went wrong! please try again ',
       })
     }
   } catch (e) {
     console.log(e)
-
     return NextResponse.json({
       success: false,
-      message: 'Something goes wrong !Please try again',
+      message: 'Something went wrong !Please try again ',
     })
   }
 }
