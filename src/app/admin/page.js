@@ -133,11 +133,6 @@ export default function AdminView() {
       label: 'Contact',
       component: <AdminContactView />,
     },
-    {
-      id: 'contact',
-      label: 'Contact',
-      component: <AdminContactView />,
-    },
   ]
 
   async function extractAllDatas() {
