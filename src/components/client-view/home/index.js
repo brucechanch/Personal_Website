@@ -1,8 +1,10 @@
 'use client'
 import AnimationWrapper from '../animation-wrapper'
 import { motion } from 'framer-motion'
-import { useMemo } from 'react'
-import { FaFacebookF, FaLinkedin, FaInstagram, FaTwitter } from 'react-icons/fa'
+import { useMemo, useRef } from 'react'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import Image from 'next/image'
+import profilePic from '../../../assets/profile-pic.jpg'
 
 function variants() {
   return {
@@ -21,10 +23,26 @@ function variants() {
   }
 }
 
+const socialIcons = [
+  {
+    id: 'github',
+    icon: (
+      <FaGithub color='rgba(13, 183, 96, 1)' className='w-[40px] h-[40px] ' />
+    ),
+  },
+  {
+    id: 'linkedin',
+    icon: (
+      <FaLinkedin color='rgba(13, 183, 96, 1)' className='w-[40px] h-[40px] ' />
+    ),
+  },
+]
+
 export default function ClientHomeView({ data }) {
   console.log(data, 'ClientHomeView')
 
   const setVariants = useMemo(() => variants(), [])
+  const containerRef = useRef(null)
 
   return (
     <div className='max-w-screen-xl mt-24 px-8 xl:px-16 mx-auto' id='home'>
@@ -57,27 +75,50 @@ export default function ClientHomeView({ data }) {
               {' '}
               {data && data.length ? data[0]?.summary : null}
             </p>
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ rotate: 360, scale: 1 }}
-              transition={{
-                type: 'spring',
-                damping: 20,
-                stiffness: 80,
-                duration: 4,
-              }}
-              className='flex gap-3'
-            >
-              <FaFacebookF
-                color='rgba(13, 183, 96, 1)'
-                className='w-[40px] h-[40px]'
-              />
-              <FaLinkedin
-                color='rgba(13, 183, 96, 1)'
-                className='w-[40px] h-[40px]'
-              />
+            <motion.div className='flex gap-3 cursor-pointer'>
+              {socialIcons.map((item) => (
+                <>
+                  <motion.div
+                    key={item.id}
+                    initial={{ scale: 0 }}
+                    animate={{ rotate: 360, scale: 1 }}
+                    transition={{
+                      type: 'spring',
+                      damping: 20,
+                      stiffness: 80,
+                      duration: 4,
+                    }}
+                    whileHover={{ scale: 1.2, rotate: 360 }}
+                    whileTap={{
+                      scale: 0.8,
+                      rotate: -360,
+                      borderRadius: '100%',
+                    }}
+                  >
+                    {item.icon}
+                  </motion.div>
+                </>
+              ))}
             </motion.div>
           </div>
+          <motion.div ref={containerRef} className='flex w-4/5 justify-end'>
+            <motion.div
+              drag
+              dragConstraints={containerRef}
+              className='w-[350px] h-[350px] relative bg-white-main'
+            >
+              <div className='w-[400px] h-[400px] top-[40px] left-[-30px] rounded-lg border-[6px] border-[#000000] absolute'></div>
+              <Image
+                src={profilePic}
+                alt='Profile Picture'
+                layout='responsive'
+                quality={100}
+                height={150}
+                width={150}
+                className='absolute top-[-30px] left-[40px]'
+              />
+            </motion.div>
+          </motion.div>
         </motion.div>
       </AnimationWrapper>
     </div>
