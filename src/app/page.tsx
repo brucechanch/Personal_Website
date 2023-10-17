@@ -9,7 +9,7 @@ async function extractAllDatas(currentSection: string) {
   try {
     const res = await axios({
       method: 'GET',
-      url: `https://personal-website-54s22nt1c-as-projects-6c9300c4.vercel.app/api/${currentSection}/get`,
+      url: `https://bcperosonal.vercel.app/api/${currentSection}/get`,
     })
 
     if (res.data) {
