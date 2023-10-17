@@ -1,7 +1,7 @@
 export async function addData(currentTab, formData) {
   try {
     const response = await fetch(
-      `https://personal-website-54s22nt1c-as-projects-6c9300c4.vercel.app//api/${currentTab}/add`,
+      `https://personal-website-54s22nt1c-as-projects-6c9300c4.vercel.app/api/${currentTab}/add`,
       {
         method: 'POST',
         headers: {
@@ -22,7 +22,7 @@ export async function addData(currentTab, formData) {
 export async function getData(currentTab) {
   try {
     const response = await fetch(
-      `https://personal-website-54s22nt1c-as-projects-6c9300c4.vercel.app//api/${currentTab}/get`,
+      `https://personal-website-54s22nt1c-as-projects-6c9300c4.vercel.app/api/${currentTab}/get`,
       {
         method: 'GET',
       }
@@ -39,7 +39,7 @@ export async function getData(currentTab) {
 export async function updateData(currentTab, formData) {
   try {
     const response = await fetch(
-      `https://personal-website-54s22nt1c-as-projects-6c9300c4.vercel.app//api/${currentTab}/update`,
+      `https://personal-website-54s22nt1c-as-projects-6c9300c4.vercel.app/api/${currentTab}/update`,
       {
         method: 'PUT',
         headers: {
@@ -60,7 +60,7 @@ export async function updateData(currentTab, formData) {
 export async function login(formData) {
   try {
     const response = await fetch(
-      `https://personal-website-54s22nt1c-as-projects-6c9300c4.vercel.app//api/login`,
+      `https://personal-website-54s22nt1c-as-projects-6c9300c4.vercel.app/api/login`,
       {
         method: 'POST',
         headers: {
