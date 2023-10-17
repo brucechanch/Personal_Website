@@ -5,10 +5,10 @@ import AdminContactView from '@/components/admin-view/contact'
 import AdminEducationView from '@/components/admin-view/education'
 import AdminExperienceView from '@/components/admin-view/experience'
 import AdminHomeView from '@/components/admin-view/home'
-import AdminProjectView from '@/components/admin-view/project'
 import Login from '@/components/admin-view/login'
-import React, { useState, useEffect } from 'react'
-import { addData, getData, updateData, login } from '@/services'
+import AdminProjectView from '@/components/admin-view/project'
+import { addData, getData, login, updateData } from '@/services'
+import { useEffect, useState } from 'react'
 
 const initialHomeFormData = {
   heading: '',
@@ -39,8 +39,8 @@ const initialEducationFormData = {
 
 const initialProjectFormData = {
   name: '',
-  technologies: '',
   website: '',
+  technologies: '',
   github: '',
 }
 
@@ -131,12 +131,13 @@ export default function AdminView() {
     {
       id: 'contact',
       label: 'Contact',
-      component: <AdminContactView />,
+      component: <AdminContactView data={allData && allData?.contact} />,
     },
   ]
 
   async function extractAllDatas() {
     const response = await getData(currentSelectedTab)
+
     if (
       currentSelectedTab === 'home' &&
       response &&
@@ -165,6 +166,8 @@ export default function AdminView() {
     }
   }
 
+  console.log(allData, 'allData')
+
   async function handleSaveData() {
     const dataMap = {
       home: homeViewFormData,
@@ -192,8 +195,8 @@ export default function AdminView() {
   function resetFormDatas() {
     setHomeViewFormData(initialHomeFormData)
     setAboutViewFormData(initialAboutFormData)
-    setEducationViewFormData(initialEducationFormData)
     setExperienceViewFormData(initialExperienceFormData)
+    setEducationViewFormData(initialEducationFormData)
     setProjectViewFormData(initialProjectFormData)
   }
 
@@ -225,7 +228,7 @@ export default function AdminView() {
 
   return (
     <div className='border-b border-gray-200'>
-      <nav className='-mb-0.5 flex justify-center space-x-6' role='tablist'>
+      <nav className='-mb-0.5 flex justify-center spcae-x-6' role='tablist'>
         {menuItems.map((item) => (
           <button
             key={item.id}
@@ -250,7 +253,7 @@ export default function AdminView() {
           Logout
         </button>
       </nav>
-      <div className='mt-10 p-10 '>
+      <div className='mt-10 p-10'>
         {menuItems.map(
           (item) => item.id === currentSelectedTab && item.component
         )}

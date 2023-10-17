@@ -51,7 +51,7 @@ export default function ClientAboutView({ data }) {
     },
   ]
 
-  const headingText = 'Why Hire Me For Your Next Project ?'
+  const headingText = 'The Personal Skills I Have  ?'
 
   return (
     <div
@@ -126,16 +126,14 @@ export default function ClientAboutView({ data }) {
             className='grid gap-4 grid-cols-3 h-full max-h-[200px] w-full'
           >
             {data?.skills.split(',').map((skill) => (
-              <>
-                <motion.div
-                  className='w-full flex justify-center items-center'
-                  variants={skillItemVariant}
-                >
-                  <button className='whitespace-nowrap text-ellipsis overflow-hidden py-3 w-[160px] px-6 border-[2px] border-green-main bg-[#fff] text-[#000] font-semibold rounded-lg text-xl tracking-widest hover:shadow-green-main transition-all outline-none'>
-                    {skill}
-                  </button>
-                </motion.div>
-              </>
+              <motion.div
+                className='w-full flex justify-center items-center'
+                variants={skillItemVariant}
+              >
+                <button className='whitespace-nowrap text-ellipsis overflow-hidden py-3 w-[160px] px-1 border-[2px] border-green-main bg-[#fff] text-[#000] font-semibold rounded-lg text-xl tracking-widest hover:shadow-green-main transition-all outline-none'>
+                  {skill}
+                </button>
+              </motion.div>
             ))}
           </motion.div>
         </AnimationWrapper>

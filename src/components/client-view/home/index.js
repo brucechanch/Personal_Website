@@ -5,7 +5,6 @@ import { useMemo, useRef } from 'react'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import Image from 'next/image'
 import profilePic from '../../../assets/profile-pic.jpg'
-
 function variants() {
   return {
     offscreen: {
@@ -26,21 +25,36 @@ function variants() {
 const socialIcons = [
   {
     id: 'github',
+    link: 'https://github.com/brucechanch',
     icon: (
-      <FaGithub color='rgba(13, 183, 96, 1)' className='w-[40px] h-[40px] ' />
+      <a
+        href={'https://github.com/brucechanch'}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <FaGithub color='rgba(13, 183, 96, 1)' className='w-[40px] h-[40px] ' />
+      </a>
     ),
   },
   {
     id: 'linkedin',
+    link: 'https://www.linkedin.com/in/brucechanch/',
     icon: (
-      <FaLinkedin color='rgba(13, 183, 96, 1)' className='w-[40px] h-[40px] ' />
+      <a
+        href={'https://www.linkedin.com/in/brucechanch/'}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <FaLinkedin
+          color='rgba(13, 183, 96, 1)'
+          className='w-[40px] h-[40px] '
+        />
+      </a>
     ),
   },
 ]
 
 export default function ClientHomeView({ data }) {
-  console.log(data, 'ClientHomeView')
-
   const setVariants = useMemo(() => variants(), [])
   const containerRef = useRef(null)
 

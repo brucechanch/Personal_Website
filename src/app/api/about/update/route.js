@@ -14,7 +14,7 @@ export async function PUT(req) {
       aboutme,
       noofprojects,
       yearofexperience,
-      nooflclients,
+      noofclients,
       skills,
     } = extractData
 
@@ -22,7 +22,7 @@ export async function PUT(req) {
       {
         _id: _id,
       },
-      { aboutme, noofprojects, yearofexperience, nooflclients, skills },
+      { aboutme, noofprojects, yearofexperience, noofclients, skills },
       { new: true }
     )
 

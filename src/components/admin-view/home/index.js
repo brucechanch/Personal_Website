@@ -22,7 +22,6 @@ export default function AdminHomeView({
   setFormData,
   handleSaveData,
 }) {
-  console.log(formData)
   return (
     <>
       <div className='w-full'>
