@@ -1,8 +1,6 @@
-'use client'
-
 export default function FormControls({ controls, formData, setFormData }) {
-  return controls.map((controlItem) => (
-    <div className='mb-4'>
+  return controls.map((controlItem, index) => (
+    <div className='mb-4' key={index}>
       <label className='block text-gray-700 text-sm font-bold mb-2'>
         {controlItem.label}
       </label>

@@ -92,7 +92,7 @@ export default function ClientAboutView({ data }) {
       <AnimationWrapper className={'pt-6'}>
         <div className='flex flex-col justify-center items-center row-start-2 sm:row-start-1'>
           <h1 className='leading-[70px] mb-4 text-3xl lg:text-4xl xl:text-5xl font-medium'>
-            {headingText.split(' ').map((item, index) => (
+            {headingText?.split(' ').map((item, index) => (
               <>
                 <span
                   className={`${
@@ -125,10 +125,11 @@ export default function ClientAboutView({ data }) {
             variants={setVariants}
             className='grid gap-4 grid-cols-3 h-full max-h-[200px] w-full'
           >
-            {data?.skills.split(',').map((skill) => (
+            {data?.skills?.split(',').map((skill, index) => (
               <motion.div
                 className='w-full flex justify-center items-center'
                 variants={skillItemVariant}
+                key={index}
               >
                 <button className='whitespace-nowrap text-ellipsis overflow-hidden py-3 w-[160px] px-1 border-[2px] border-green-main bg-[#fff] text-[#000] font-semibold rounded-lg text-xl tracking-widest hover:shadow-green-main transition-all outline-none'>
                   {skill}

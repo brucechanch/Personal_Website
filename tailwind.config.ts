@@ -16,7 +16,7 @@ module.exports = {
       t: "0 -1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
       orange: "0px 20px 20px -15px rgba(245,56,56,0.81) ",
       "green-md": "0px 20px 40px -15px rgba(245,56,56,0.81) ",
-      "green-md" : "0px 20px 40px -15px rgba(13, 183, 96, 0.81)",
+      "green-lg" : "0px 20px 40px -15px rgba(13, 183, 96, 0.81)",
       none: "none",
     },
     colors: {

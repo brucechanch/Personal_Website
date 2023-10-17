@@ -8,7 +8,7 @@ import AdminHomeView from '@/components/admin-view/home'
 import Login from '@/components/admin-view/login'
 import AdminProjectView from '@/components/admin-view/project'
 import { addData, getData, login, updateData } from '@/services'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 
 const initialHomeFormData = {
   heading: '',
@@ -135,7 +135,7 @@ export default function AdminView() {
     },
   ]
 
-  async function extractAllDatas() {
+  const extractAllDatas = useCallback(async () => {
     const response = await getData(currentSelectedTab)
 
     if (
@@ -159,14 +159,22 @@ export default function AdminView() {
     }
 
     if (response?.success) {
-      setAllData({
-        ...allData,
+      setAllData((prevAllData) => ({
+        ...prevAllData,
         [currentSelectedTab]: response && response.data,
-      })
+      }))
     }
-  }
+  }, [
+    currentSelectedTab,
+    setHomeViewFormData,
+    setAboutViewFormData,
+    setAllData,
+    setUpdate,
+  ])
 
-  console.log(allData, 'allData')
+  useEffect(() => {
+    extractAllDatas()
+  }, [currentSelectedTab, extractAllDatas])
 
   async function handleSaveData() {
     const dataMap = {
@@ -188,9 +196,9 @@ export default function AdminView() {
     }
   }
 
-  useEffect(() => {
-    extractAllDatas()
-  }, [currentSelectedTab])
+  // useEffect(() => {
+  //   extractAllDatas()
+  // }, [currentSelectedTab, extractAllDatas])
 
   function resetFormDatas() {
     setHomeViewFormData(initialHomeFormData)
