@@ -19,16 +19,20 @@ export default async function Home() {
   const homeSectionData = await extractAllDatas('home')
   const aboutSectionData = await extractAllDatas('about')
   const experienceSectionData = await extractAllDatas('experience')
-  const projectSectionData = await extractAllDatas('project')
   const educationSectionData = await extractAllDatas('education')
+  const projectSectionData = await extractAllDatas('project')
 
   return (
     <div>
       <ClientHomeView data={homeSectionData} />
-      <ClientAboutView data={homeSectionData} />
+      <ClientAboutView
+        data={
+          aboutSectionData && aboutSectionData.length ? aboutSectionData[0] : []
+        }
+      />
       <ClientExperienceAndEducationView
         educationData={educationSectionData}
-        experienceData={homeSectionData}
+        experienceData={experienceSectionData}
       />
       <ClientProjectView data={projectSectionData} />
       <ClientContactView />
