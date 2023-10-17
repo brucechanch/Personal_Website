@@ -82,13 +82,15 @@ export default function ClientExperienceAndEducationView({
             <div className='flex flex-col justify-center items-center row-start-2 sm:row-start-1'>
               <h1 className='leading-[70px] mb-4 text-3xl lg:text-4xl xl:text-5xl font-medium'>
                 {'My Education'.split(' ').map((item, index) => (
-                  <span
-                    className={`${
-                      index === 1 ? 'text-green-main' : 'text-[#000]'
-                    }`}
-                  >
-                    {item}{' '}
-                  </span>
+                  <>
+                    <span
+                      className={`${
+                        index === 1 ? 'text-green-main' : 'text-[#000]'
+                      }`}
+                    >
+                      {item}{' '}
+                    </span>
+                  </>
                 ))}
               </h1>
             </div>
