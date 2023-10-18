@@ -51,7 +51,7 @@ export default function ClientAboutView({ data }) {
     },
   ]
 
-  const headingText = 'The Personal Skills I Have  ?'
+  const headingText = 'The Personal Skills I Have '
 
   return (
     <div
