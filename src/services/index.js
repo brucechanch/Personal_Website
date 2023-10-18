@@ -1,7 +1,7 @@
 export async function addData(currentTab, formData) {
   try {
     const response = await fetch(
-      `https://bcperosonal.vercel.app/api/${currentTab}/add`,
+      `bcperosonal.vercel.app/api/${currentTab}/add`,
       {
         method: 'POST',
         headers: {
