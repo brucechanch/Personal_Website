@@ -61,8 +61,8 @@ export default function AdminProjectView({
           onClick={() => handleSaveData('project')}
           className='mt-[10px] border border-green-600 p-4 font-bold text-[16px]'
         >
-          Add Info
-        </button>
+          Add Info 
+        </button> 
       </div>
     </div>
   )
